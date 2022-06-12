@@ -3,6 +3,7 @@
 #include "wx/wx.h"
 #include <string>
 #include <stack>
+#include <exception>
 
 class Zadania
 {
@@ -178,6 +179,8 @@ public:
         std::string wyrazenie = r.ToStdString();
         std::string operatory = "/+-* ";
 
+        if (wyrazenie.length() % 2==0) return 0;
+
         for (auto c : wyrazenie) {
             if (!(std::isdigit(c)) && (operatory.find(c)== std::string::npos))
                 return 0;
@@ -186,37 +189,42 @@ public:
         std::stack<int> stos;
         int n = wyrazenie.length();
 
-        for (int i = 0; i < n; i++) {
-            int cyfra = (int)wyrazenie.at(i);
+        
+            for (int i = 0; i < n; i++) {
+                int cyfra = (int)wyrazenie.at(i);
 
-            if (isdigit(cyfra)) {
-                cyfra -= 48;
-                stos.push(cyfra);
-            }
-            else if (isspace(cyfra)) { continue; }
-            else {
-                int x = stos.top();
-                stos.pop();
-                int y = stos.top();
-                stos.pop();
-                switch (wyrazenie.at(i))
-                {
-                case '-':
-                    stos.push(y - x);
-                    break;
-                case '+':
-                    stos.push(y + x);
-                    break;
-                case '/':
-                    stos.push(y / x);
-                    break;
-                case '*':
-                    stos.push(y * x);
-                    break;
+                if (isdigit(cyfra)) {
+                    cyfra -= 48;
+                    stos.push(cyfra);
+                }
+                else if (isspace(cyfra)) { continue; }
+                else {
+                    int x, y;
+                    if (stos.size() <= 1) return 0;
+                    x = stos.top();
+                    stos.pop();
+                    y = stos.top();
+                    stos.pop();
+                    
+                        
+                    switch (wyrazenie.at(i))
+                    {
+                    case '-':
+                        stos.push(y - x);
+                        break;
+                    case '+':
+                        stos.push(y + x);
+                        break;
+                    case '/':
+                        stos.push(y / x);
+                        break;
+                    case '*':
+                        stos.push(y * x);
+                        break;
+                    }
                 }
             }
-        }
-
+      
         return stos.top();
         
     }
