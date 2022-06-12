@@ -16,16 +16,17 @@ public:
 	
 	wxPanel* panel = nullptr;
 	
-	wxChoice* choice_k = nullptr; //cezar czy vigenere
-	wxChoice* choice_l = nullptr; //szyfruj czy deszyfruj
-	wxTextCtrl* phrase = nullptr;
-	wxTextCtrl* key_k = nullptr;
+	wxChoice* choice1 = nullptr; //cezar czy vigenere
+	wxChoice* choice2 = nullptr; //szyfruj czy deszyfruj
+	wxTextCtrl* textCtrl1 = nullptr;
+	wxTextCtrl* textCtrl2 = nullptr;
 	wxButton* submit = nullptr;
 	wxListBox* list = nullptr;
 	
 
 	void OnCipherSubmitButtonClick(wxCommandEvent& evt);
 	void OnChoiceChange(wxCommandEvent& evt);
+	void OnAnagramSubmitButtonClick(wxCommandEvent& evt);
 
 	wxDECLARE_EVENT_TABLE();
 

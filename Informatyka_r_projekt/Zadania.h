@@ -12,6 +12,16 @@ public:
         std::string text = t.ToStdString();
         std::string key = k.ToStdString();
 
+        for (auto& c : text) {
+            if (std::isdigit(c))
+                return "";
+        }
+        for (auto& c : key) {
+            if (std::isdigit(c))
+                return "";
+        }
+
+
         for (auto& c : text) c = toupper(c);
         for (auto& c : key) c = toupper(c);
 
@@ -40,6 +50,15 @@ public:
         std::string text = t.ToStdString();
         std::string key = k.ToStdString();
 
+        for (auto& c : text) {
+            if (std::isdigit(c))
+                return "";
+        }
+        for (auto& c : key) {
+            if (std::isdigit(c))
+                return "";
+        }
+
         for (auto& c : text) c = toupper(c);
         for (auto& c : key) c = toupper(c);
 
@@ -66,6 +85,13 @@ public:
     wxString encryptC(wxString t, int k) {
         std::string text = t.ToStdString();
 
+        if (k == 0) return t;
+
+        for (auto& c : text) {
+            if (std::isdigit(c))
+                return "";
+        }
+
         for (auto& c : text) c = toupper(c);
 
         if (k > 26) k %= 26;
@@ -87,18 +113,47 @@ public:
     wxString decryptC(wxString t, int k) {
         std::string text = t.ToStdString();
 
+
+        if (k == 0) return t;
+
+        for (auto& c : text) {
+            if (std::isdigit(c))
+                return "";
+        }
+
+
         for (auto& c : text) c = toupper(c);
 
         if (k > 26) k %= 26;
         for (int i = 0; i < text.length(); i++)
         {
             if (text[i] == ' ') continue;
-            text[i] -= k;
+            if (text[i] - k >= 'A')
+                text[i] -= k;
+            else
+                text[i] = text[i] + 26 - k;
         }
 
         wxString wynik(text.c_str(), wxConvUTF8);
 
         return wynik;
+    }
+
+    bool are_anagrams(wxString str1, wxString str2) {
+        if (str1.size() != str2.size()) return false;
+
+        std::string s1 = str1.ToStdString();
+        std::string s2 = str2.ToStdString();
+
+        std::sort(s1.begin(), s1.end());
+        std::sort(s2.begin(), s2.end());
+
+        for (int i = 0; i < s1.size(); i++) {
+            if (s1[i] != s2[i])
+                return false;
+        }
+
+        return true;
     }
 };
 
