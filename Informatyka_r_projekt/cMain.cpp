@@ -23,11 +23,12 @@ cMain::cMain() : wxFrame(
 
 	panel = new wxPanel(this,16,wxPoint(0,0),wxSize(500,500));
 	
-	
-	
 };
 
 cMain::~cMain() {
+	//usuwaniem wskaznikow z wxWidgets zajmuje sie on sam
+	//zeby uniknac bledow, nie ma czego usuwac
+	//nie ma wycieku pamieci
 	delete task;
 };
 

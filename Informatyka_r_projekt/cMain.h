@@ -10,6 +10,8 @@ public:
 	cMain();
 	~cMain();
 
+	wxDECLARE_EVENT_TABLE();
+
 	Zadania* task = new Zadania;
 
 	wxChoice* choice_task = nullptr; //wybor dzialania
@@ -18,8 +20,8 @@ public:
 	
 	wxChoice* choice1 = nullptr; //cezar czy vigenere
 	wxChoice* choice2 = nullptr; //szyfruj czy deszyfruj
-	wxTextCtrl* textCtrl1 = nullptr;
-	wxTextCtrl* textCtrl2 = nullptr;
+	wxTextCtrl* textCtrl1 = nullptr; //input text 1
+	wxTextCtrl* textCtrl2 = nullptr; //input text 2
 	wxButton* submit = nullptr;
 	wxListBox* list = nullptr;
 	
@@ -29,8 +31,5 @@ public:
 	void OnAnagramSubmitButtonClick(wxCommandEvent& evt);
 	void OnPalindromeSubmitButtonClick(wxCommandEvent& evt);
 	void OnONPSubmitButtonClick(wxCommandEvent& evt);
-
-	wxDECLARE_EVENT_TABLE();
-
 };
 

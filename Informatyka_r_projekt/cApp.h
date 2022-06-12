@@ -11,6 +11,6 @@ public:
 	~cApp();
 	virtual bool OnInit();
 private:
-	cMain* frame = nullptr;
+	cMain* frame = nullptr; //glowne okno
 };
 
