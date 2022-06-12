@@ -1,6 +1,8 @@
 #pragma once
 
 #include "wx/wx.h"
+#include <string>
+#include <stack>
 
 class Zadania
 {
@@ -140,7 +142,9 @@ public:
     }
 
     bool are_anagrams(wxString str1, wxString str2) {
+        
         if (str1.size() != str2.size()) return false;
+
 
         std::string s1 = str1.ToStdString();
         std::string s2 = str2.ToStdString();
@@ -154,6 +158,67 @@ public:
         }
 
         return true;
+    }
+
+    bool are_palindrome(wxString str1) {
+
+        std::string s1 = str1.ToStdString();
+        std::string s2 = s1;
+
+        std::reverse(s2.begin(), s2.end());
+
+        if (s1 != s2) return false;
+        
+        return true;
+
+    }
+
+    int ONP(wxString r) {
+
+        std::string wyrazenie = r.ToStdString();
+        std::string operatory = "/+-* ";
+
+        for (auto c : wyrazenie) {
+            if (!(std::isdigit(c)) && (operatory.find(c)== std::string::npos))
+                return 0;
+        }
+
+        std::stack<int> stos;
+        int n = wyrazenie.length();
+
+        for (int i = 0; i < n; i++) {
+            int cyfra = (int)wyrazenie.at(i);
+
+            if (isdigit(cyfra)) {
+                cyfra -= 48;
+                stos.push(cyfra);
+            }
+            else if (isspace(cyfra)) { continue; }
+            else {
+                int x = stos.top();
+                stos.pop();
+                int y = stos.top();
+                stos.pop();
+                switch (wyrazenie.at(i))
+                {
+                case '-':
+                    stos.push(y - x);
+                    break;
+                case '+':
+                    stos.push(y + x);
+                    break;
+                case '/':
+                    stos.push(y / x);
+                    break;
+                case '*':
+                    stos.push(y * x);
+                    break;
+                }
+            }
+        }
+
+        return stos.top();
+        
     }
 };
 

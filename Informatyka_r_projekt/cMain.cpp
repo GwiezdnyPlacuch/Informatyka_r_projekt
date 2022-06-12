@@ -19,6 +19,7 @@ cMain::cMain() : wxFrame(
 	choice_task->Append("Szyfrowania"); //0
 	choice_task->Append("Anagramy"); //1
 	choice_task->Append("Palindromy"); //2
+	choice_task->Append("ONP"); //3
 
 	panel = new wxPanel(this,16,wxPoint(0,0),wxSize(500,500));
 	
@@ -59,6 +60,26 @@ void cMain::OnChoiceChange(wxCommandEvent& evt) {
 
 		submit = new wxButton(panel, wxID_ANY, "Sprawdz", wxPoint(10, 90), wxSize(105, 30));
 		submit->Connect(wxEVT_BUTTON, wxCommandEventHandler(cMain::OnAnagramSubmitButtonClick), NULL, this);
+
+		list = new wxListBox(panel, wxID_ANY, wxPoint(10, 140), wxSize(330, 30));
+
+		break;
+	}
+	case 2: {
+		textCtrl1 = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(10, 50), wxSize(160, 30));
+
+		submit = new wxButton(panel, wxID_ANY, "Sprawdz", wxPoint(10, 90), wxSize(105, 30));
+		submit->Connect(wxEVT_BUTTON, wxCommandEventHandler(cMain::OnPalindromeSubmitButtonClick), NULL, this);
+
+		list = new wxListBox(panel, wxID_ANY, wxPoint(10, 140), wxSize(330, 30));
+
+		break;
+	}
+	case 3: {
+		textCtrl1 = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(10, 50), wxSize(160, 30));
+
+		submit = new wxButton(panel, wxID_ANY, "Policz", wxPoint(10, 90), wxSize(105, 30));
+		submit->Connect(wxEVT_BUTTON, wxCommandEventHandler(cMain::OnONPSubmitButtonClick), NULL, this);
 
 		list = new wxListBox(panel, wxID_ANY, wxPoint(10, 140), wxSize(330, 30));
 
@@ -119,4 +140,26 @@ void cMain::OnAnagramSubmitButtonClick(wxCommandEvent& evt) {
 	evt.Skip();
 }
 
+void cMain::OnPalindromeSubmitButtonClick(wxCommandEvent& evt) {
+	list->Clear();
 
+	if (task->are_palindrome(textCtrl1->GetValue())) {
+		list->Append("To jest palindrom");
+	}
+	else {
+		list->Append("To nie jest palindrom");
+	}
+
+	evt.Skip();
+}
+
+void cMain::OnONPSubmitButtonClick(wxCommandEvent& evt) {
+	list->Clear();
+
+	int k = task->ONP(textCtrl1->GetValue());
+	wxString s = wxString::Format(wxT("%i"), k);
+
+	list->Append(s);
+
+	evt.Skip();
+}

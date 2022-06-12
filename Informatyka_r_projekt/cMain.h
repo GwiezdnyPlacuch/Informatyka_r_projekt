@@ -2,7 +2,7 @@
 
 #include "wx/wx.h"
 #include "Zadania.h"
-#include <string>
+
 
 class cMain : public wxFrame
 {
@@ -27,6 +27,8 @@ public:
 	void OnCipherSubmitButtonClick(wxCommandEvent& evt);
 	void OnChoiceChange(wxCommandEvent& evt);
 	void OnAnagramSubmitButtonClick(wxCommandEvent& evt);
+	void OnPalindromeSubmitButtonClick(wxCommandEvent& evt);
+	void OnONPSubmitButtonClick(wxCommandEvent& evt);
 
 	wxDECLARE_EVENT_TABLE();
 
